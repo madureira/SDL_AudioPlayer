@@ -1,6 +1,6 @@
 #pragma once
 
-#include<string.h> 
+#include<string.h>
 #include <SDL2/SDL.h>
 
 #define MAX_VOLUME SDL_MIX_MAXVOLUME
@@ -22,6 +22,7 @@ struct AudioData
 	int loop;
 	bool isMusic;
 	bool isPaused;
+
 	AudioData() {}
 };
 
@@ -53,8 +54,10 @@ public:
 		SDL_CloseAudioDevice(m_DeviceId);
 
 		for (int i = 0; i < MAX_SONGS; i++) {
-			stored_audio_data[i].wavSpec.callback = NULL;
-			SDL_FreeWAV(stored_audio_data[i].wavBuffer);
+			if (stored_audio_data[i].wavBuffer != nullptr) {
+				stored_audio_data[i].wavSpec.callback = NULL;
+				SDL_FreeWAV(stored_audio_data[i].wavBuffer);
+			}
 		}
 	}
 
