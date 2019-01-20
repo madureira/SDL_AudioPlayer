@@ -22,7 +22,7 @@ SDL_AudioPlayer audioPlayer;
 
 audioPlayer.loadMusic("path_to_file/music.wav", "my_music");
 
-audioPlayer.play("music_one", MAX_VOLUME, 0);
+audioPlayer.play("my_music", MAX_VOLUME, 0);
 ```
 
 ### Playing a sound effect
