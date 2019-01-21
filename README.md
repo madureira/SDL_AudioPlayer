@@ -1,21 +1,24 @@
 # SDL_AudioPlayer
 A C++/SDL2 audio player compatible with Emscripten.
 
-This library doesn't use **SDL_mixer**.
+This library doesn't use [**SDL_mixer**](https://www.libsdl.org/projects/SDL_mixer).
 
 [![language](https://img.shields.io/badge/language-c++-blue.svg)](https://isocpp.org)
 [![c++](https://img.shields.io/badge/std-c++11-blue.svg)](https://isocpp.org/wiki/faq/cpp11)
 [![SDL](https://img.shields.io/badge/SDL-2.0.9-green.svg)](https://www.libsdl.org/download-2.0.php)
 [![emsdk-1.38.24](https://img.shields.io/badge/emsdk-1.38.24-red.svg)](http://kripken.github.io/emscripten-site/docs/getting_started/downloads.html)
+![stability-wip](https://img.shields.io/badge/stability-work_in_progress-lightgrey.svg)
 
-## Install
+## Installation
+
 Just include the header `SDL_AudioPlayer.h` in your project.
+
 
 ## How to use
 
 ### Playing a music
 
-```c
+```c++
 #include "SDL_AudioPlayer.h"
 
 SDL_AudioPlayer audioPlayer;
@@ -46,6 +49,7 @@ audioPlayer.pause("my_song");
 audioPlayer.resume("my_song", MAX_VOLUME, 0);
 ```
 
+
 ### Changing a music
 If there is a music playing, and you load and play another music, the current music will fade out and the last one will be played.
 
@@ -61,3 +65,9 @@ audioPlayer.play("other_song", MAX_VOLUME, 0);
 ```
 
 In the example above, the `nice_music` will start to play. Immediately, it will start to fade out, because the `other_song` signalized that it needs to play.
+
+
+## Limitations
+
+- Only **.WAV** files.
+- Only **64** audios simultaneously.
