@@ -18,7 +18,7 @@ Just include the header `SDL_AudioPlayer.h` in your project.
 
 ### Playing a music
 
-```c++
+```cpp
 #include "SDL_AudioPlayer.h"
 
 SDL_AudioPlayer audioPlayer;
