@@ -41,14 +41,14 @@ private:
 	int m_Samples;
 
 public:
-	SDL_AudioPlayer(SDL_AudioFormat audioFormat = AUDIO_S16, int audioFrequency = 44100, int channels = 2, int samples = 4096) :
-		m_AudioFrequency(audioFrequency), m_Channels(channels), m_Samples(samples)
+	SDL_AudioPlayer(SDL_AudioFormat format = AUDIO_S16, int frequency = 44100, int channels = 2, int samples = 4096) :
+		m_AudioFrequency(frequency), m_Channels(channels), m_Samples(samples)
 	{
 		if (!(SDL_WasInit(SDL_INIT_AUDIO) & SDL_INIT_AUDIO))
 		{
 			SDL_Init(SDL_INIT_AUDIO);
 		}
-		audio_format = audioFormat;
+		audio_format = format;
 	}
 
 	~SDL_AudioPlayer()
@@ -140,7 +140,8 @@ public:
 	{
 		if ((strcmp(filePath, "") == 0))
 		{
-			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Cannot create a new audio without a file path! %s\n", audioName);
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Cannot create a new audio without a file path! %s\n",
+				audioName);
 			return;
 		}
 
@@ -162,7 +163,8 @@ public:
 
 		if (emptySlot == -1)
 		{
-			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Fail to create a new audio: %s.\n Exceeded the number of simultaneous audios.\n MAX_SONGS = %i\n", filePath, MAX_SONGS);
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Exceeded the number of simultaneous audios.\nMAX_SONGS = %i\n",
+				MAX_SONGS);
 			return;
 		}
 
@@ -170,7 +172,8 @@ public:
 
 		SDL_memset(&stored_audio_data[emptySlot], 0, sizeof(AudioData));
 
-		if (SDL_LoadWAV(filePath, &stored_audio_data[emptySlot].wavSpec, &stored_audio_data[emptySlot].wavBuffer, &stored_audio_data[emptySlot].wavLength) == NULL)
+		if (SDL_LoadWAV(filePath, &stored_audio_data[emptySlot].wavSpec, &stored_audio_data[emptySlot].wavBuffer,
+			&stored_audio_data[emptySlot].wavLength) == NULL)
 		{
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Could not open %s: %s\n", filePath, SDL_GetError());
 		}
@@ -273,7 +276,8 @@ static inline void audio_callback(void* userdata, Uint8* stream, int len)
 
 				len = (tempLen > stored_audio_data[i].wavLength ? stored_audio_data[i].wavLength : tempLen);
 
-				SDL_MixAudioFormat(stream, stored_audio_data[i].wavBuffer, audio_format, tempLen, stored_audio_data[i].volume);
+				SDL_MixAudioFormat(stream, stored_audio_data[i].wavBuffer, audio_format, tempLen,
+					stored_audio_data[i].volume);
 
 				stored_audio_data[i].wavBuffer += tempLen;
 				stored_audio_data[i].wavLength -= tempLen;
