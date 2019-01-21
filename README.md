@@ -29,7 +29,7 @@ audioPlayer.play("my_music", MAX_VOLUME, 0);
 ```
 
 ### Playing a sound effect
-```c
+```cpp
 audioPlayer.loadSoundEffect("path_to_file/effect.wav", "my_cool_sound_effect");
 
 audioPlayer.play("my_cool_sound_effect", 30, 0);
@@ -37,7 +37,7 @@ audioPlayer.play("my_cool_sound_effect", 30, 0);
 
 ### Pausing and resuming a music/sound effect
 
-```c
+```cpp
 audioPlayer.play("my_song", MAX_VOLUME, 0);
 
 /* Do something that takes a while */
@@ -53,7 +53,7 @@ audioPlayer.resume("my_song", MAX_VOLUME, 0);
 ### Changing a music
 If there is a music playing, and you load and play another music, the current music will fade out and the last one will be played.
 
-```c
+```cpp
 audioPlayer.loadMusic("path_to_file/music.wav", "nice_music");
 audioPlayer.loadMusic("path_to_file/another_music.wav", "other_song");
 
