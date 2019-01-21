@@ -247,41 +247,42 @@ static inline void audio_callback(void* userdata, Uint8* stream, int len)
 
 	for (int i = 0; i < MAX_SONGS; i++)
 	{
-		if (stored_audio_data[i].wavLength > 0)
+		if (stored_audio_data[i].wavLength <= 0)
 		{
+			continue;
+		}
 
-			if (is_playing_music && stored_audio_data[i].isMusic && stored_audio_data[i].volume > 0
-				&& stored_audio_data[i].name == playing_music_name && !(strcmp(next_music_on_queue, "") == 0))
+		if (is_playing_music && stored_audio_data[i].isMusic && stored_audio_data[i].volume > 0
+			&& stored_audio_data[i].name == playing_music_name && !(strcmp(next_music_on_queue, "") == 0))
+		{
+			stored_audio_data[i].volume--;
+
+			if (stored_audio_data[i].volume == 0)
 			{
-				stored_audio_data[i].volume--;
-
-				if (stored_audio_data[i].volume == 0)
-				{
-					is_playing_music = false;
-				}
+				is_playing_music = false;
 			}
+		}
 
-			if (!is_playing_music && stored_audio_data[i].isMusic && stored_audio_data[i].volume > 0
-				&& stored_audio_data[i].name == next_music_on_queue)
-			{
-				next_music_on_queue = "";
-				is_playing_music = true;
-				playing_music_name = stored_audio_data[i].name;
-				stored_audio_data[i].isPaused = false;
-			}
+		if (!is_playing_music && stored_audio_data[i].isMusic && stored_audio_data[i].volume > 0
+			&& stored_audio_data[i].name == next_music_on_queue)
+		{
+			next_music_on_queue = "";
+			is_playing_music = true;
+			playing_music_name = stored_audio_data[i].name;
+			stored_audio_data[i].isPaused = false;
+		}
 
-			if (stored_audio_data[i].volume > 0 && !stored_audio_data[i].isPaused)
-			{
-				Uint32 tempLen = (Uint32)len;
+		if (stored_audio_data[i].volume > 0 && !stored_audio_data[i].isPaused)
+		{
+			Uint32 tempLen = (Uint32)len;
 
-				len = (tempLen > stored_audio_data[i].wavLength ? stored_audio_data[i].wavLength : tempLen);
+			len = (tempLen > stored_audio_data[i].wavLength ? stored_audio_data[i].wavLength : tempLen);
 
-				SDL_MixAudioFormat(stream, stored_audio_data[i].wavBuffer, audio_format, tempLen,
-					stored_audio_data[i].volume);
+			SDL_MixAudioFormat(stream, stored_audio_data[i].wavBuffer, audio_format, tempLen,
+				stored_audio_data[i].volume);
 
-				stored_audio_data[i].wavBuffer += tempLen;
-				stored_audio_data[i].wavLength -= tempLen;
-			}
+			stored_audio_data[i].wavBuffer += tempLen;
+			stored_audio_data[i].wavLength -= tempLen;
 		}
 	}
 }
