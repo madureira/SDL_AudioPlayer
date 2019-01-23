@@ -179,7 +179,7 @@ public:
 		}
 		else
 		{
-			stored_audio_data[emptySlot].isPaused = isMusic ? true : false;
+			stored_audio_data[emptySlot].isPaused = true;
 			stored_audio_data[emptySlot].isMusic = isMusic;
 			stored_audio_data[emptySlot].wavSpec.freq = m_AudioFrequency;
 			stored_audio_data[emptySlot].wavSpec.format = audio_format;
