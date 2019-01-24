@@ -26,6 +26,10 @@ SDL_AudioPlayer audioPlayer;
 audioPlayer.loadMusic("path_to_file/music.wav", "my_music");
 
 audioPlayer.play("my_music", MAX_VOLUME, 0);
+
+/* Do something that takes a while */
+
+audioPlayer.freeAudio();
 ```
 
 ### Playing a sound effect
@@ -66,6 +70,22 @@ audioPlayer.play("other_song", MAX_VOLUME, 0);
 
 In the example above, the `nice_music` will start to play. Immediately, it will start to fade out, because the `other_song` signalized that it needs to play.
 
+
+### Clean up the memory
+After using the SDL_AudioPlayer instance, it's a good idea to finish it.
+
+You cand do this calling the method `quit()`.
+
+```cpp
+audioPlayer.loadMusic("path_to_file/music.wav", "nice_music");
+
+audioPlayer.play("nice_music", 100, 0);
+
+/* Do something that takes a while */
+
+// frees the audio memory and finishes SDL_AudioPlayer
+audioPlayer.quit();
+```
 
 ## Limitations
 

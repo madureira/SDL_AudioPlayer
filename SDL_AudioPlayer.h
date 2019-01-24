@@ -136,6 +136,12 @@ public:
 		stored_audio_data[index].isPaused = false;
 	}
 
+	void quit()
+	{
+		this->SDL_AudioPlayer::~SDL_AudioPlayer();
+	}
+
+private:
 	void createAudio(const char* filePath, const char* audioName, bool isMusic)
 	{
 		if ((strcmp(filePath, "") == 0))
@@ -207,7 +213,6 @@ public:
 		SDL_UnlockAudioDevice(m_DeviceId);
 	}
 
-private:
 	int findAudioIndexByName(const char* audioName)
 	{
 		for (int i = 0; i < MAX_SONGS; i++)
