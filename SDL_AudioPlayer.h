@@ -136,6 +136,17 @@ public:
 		stored_audio_data[index].isPaused = false;
 	}
 
+	void volume(const char* audioName, int volume)
+	{
+		int index = findAudioIndexByName(audioName);
+		if (index == -1)
+		{
+			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Fail to change volume of: %s, audio not found!\n", audioName);
+			return;
+		}
+		stored_audio_data[index].volume = fixVolume(volume);
+	}
+
 	void quit()
 	{
 		this->SDL_AudioPlayer::~SDL_AudioPlayer();

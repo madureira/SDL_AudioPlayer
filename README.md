@@ -33,6 +33,7 @@ audioPlayer.freeAudio();
 ```
 
 ### Playing a sound effect
+
 ```cpp
 audioPlayer.loadSoundEffect("path_to_file/effect.wav", "my_cool_sound_effect");
 
@@ -55,6 +56,7 @@ audioPlayer.resume("my_song", MAX_VOLUME, 0);
 
 
 ### Changing a music
+
 If there is a music playing, and you load and play another music, the current music will fade out and the last one will be played.
 
 ```cpp
@@ -72,6 +74,7 @@ In the example above, the `nice_music` will start to play. Immediately, it will 
 
 
 ### Clean up the memory
+
 After using the SDL_AudioPlayer instance, it's a good idea to finish it.
 
 You cand do this calling the method `quit()`.
@@ -85,6 +88,20 @@ audioPlayer.play("nice_music", 100, 0);
 
 // frees the audio memory and finishes SDL_AudioPlayer
 audioPlayer.quit();
+```
+
+### Changing audio voulume
+
+It's possible to change the audio's volume in runtime.
+
+```cpp
+audioPlayer.loadMusic("path_to_file/music.wav", "nice_music");
+
+audioPlayer.play("nice_music", 100, 0);
+
+/* Do something that takes a while */
+
+audioPlayer.volume("nice_music", 20);
 ```
 
 ## Limitations
