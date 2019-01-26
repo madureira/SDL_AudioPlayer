@@ -77,7 +77,7 @@ In the example above, the `nice_music` will start to play. Immediately, it will 
 
 After using the SDL_AudioPlayer instance, it's a good idea to finish it.
 
-You cand do this calling the method `quit()`.
+You can do this calling the method `quit()`.
 
 ```cpp
 audioPlayer.loadMusic("path_to_file/music.wav", "nice_music");
@@ -102,6 +102,22 @@ audioPlayer.play("nice_music", 100, 0);
 /* Do something that takes a while */
 
 audioPlayer.volume("nice_music", 20);
+```
+
+### Stopping all songs
+
+To pause all audios that are playing, call the method `stop()`.
+
+```cpp
+audioPlayer.loadMusic("path_to_file/music.wav", "my_music");
+audioPlayer.loadSoundEffect("path_to_file/door.wav", "open_door");
+
+audioPlayer.play("my_music", MAX_VOLUME, 0);
+audioPlayer.play("open_door", 50, 0);
+
+/* Do something that takes a while */
+
+audioPlayer.stop();
 ```
 
 ## Limitations
