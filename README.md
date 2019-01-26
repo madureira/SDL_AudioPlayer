@@ -29,7 +29,7 @@ audioPlayer.play("my_music", MAX_VOLUME, 0);
 
 /* Do something that takes a while */
 
-audioPlayer.freeAudio();
+audioPlayer.quit();
 ```
 
 ### Playing a sound effect

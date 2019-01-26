@@ -35,7 +35,7 @@ class SDL_AudioPlayer
 private:
 	SDL_AudioDeviceID m_DeviceId;
 	bool m_IsDeviceOpened = false;
-	bool m_IsDevicePlaying = false;
+	bool m_IsDeviceEnabled = false;
 	int m_AudioFrequency;
 	int m_Channels;
 	int m_Samples;
@@ -106,10 +106,10 @@ public:
 			stored_audio_data[index].isPaused = false;
 		}
 
-		if (!m_IsDevicePlaying)
+		if (!m_IsDeviceEnabled)
 		{
 			SDL_PauseAudioDevice(m_DeviceId, 0);
-			m_IsDevicePlaying = true;
+			m_IsDeviceEnabled = true;
 		}
 	}
 
@@ -145,6 +145,19 @@ public:
 			return;
 		}
 		stored_audio_data[index].volume = fixVolume(volume);
+	}
+
+	void stop()
+	{
+		for (int i = 0; i < MAX_SONGS; i++)
+		{
+			if (stored_audio_data[i].wavBuffer != nullptr)
+			{
+				stored_audio_data[i].isPaused = true;
+			}
+		}
+		SDL_PauseAudioDevice(m_DeviceId, 1);
+		m_IsDeviceEnabled = false;
 	}
 
 	void quit()
