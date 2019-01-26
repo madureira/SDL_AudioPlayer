@@ -90,9 +90,9 @@ audioPlayer.play("nice_music", 100, 0);
 audioPlayer.quit();
 ```
 
-### Changing audio voulume
+### Changing audio volume
 
-It's possible to change the audio's volume in runtime.
+It's possible to change the audio volume at runtime.
 
 ```cpp
 audioPlayer.loadMusic("path_to_file/music.wav", "nice_music");
